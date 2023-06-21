@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="464.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weather.weather.WeatherController">
-   <children>
-      <TextField fx:id="cityInput" layoutX="182.0" layoutY="323.0" prefHeight="37.0" prefWidth="263.0" promptText="Enter city..." />
-      <Button fx:id="searchButton" layoutX="445.0" layoutY="323.0" mnemonicParsing="false" onAction="#search" prefHeight="37.0" prefWidth="63.0" text="Search" />
-   </children>
+<AnchorPane prefHeight="464.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.weather.weather.WeatherController">
+   <TextField fx:id="cityInput" layoutX="182.0" layoutY="323.0" prefHeight="37.0" prefWidth="263.0"
+              promptText="Enter city..."/>
+   <Button fx:id="searchButton" layoutX="445.0" layoutY="323.0" mnemonicParsing="false" onAction="#search"
+           prefHeight="37.0" prefWidth="63.0" text="Search"/>
+   <Label fx:id="cityLabel" layoutX="327.0" layoutY="76.0" text="Label"/>
+   <Label fx:id="tempLabel" layoutX="327.0" layoutY="152.0" text="Label"/>
+   <Label fx:id="speedLabel" layoutX="327.0" layoutY="240.0" text="Label"/>
 </AnchorPane>
