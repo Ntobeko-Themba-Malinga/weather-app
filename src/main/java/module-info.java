@@ -4,6 +4,7 @@ module com.weather.weather {
     requires javafx.graphics;
     requires java.net.http;
     requires org.json;
+    requires java.sql;
 
 
     opens com.weather.weather to javafx.fxml;
