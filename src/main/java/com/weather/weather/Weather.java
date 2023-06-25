@@ -12,7 +12,6 @@ import java.util.Objects;
  * Weather app program entry point.
  */
 public class Weather extends Application {
-
     /**
      * Launches the javaFX window.
      * @param args commandline arguments

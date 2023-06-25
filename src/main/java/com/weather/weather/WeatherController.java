@@ -24,20 +24,24 @@ public class WeatherController {
 
     private final CitySearcher citySearcher;
     private final CityWeather cityWeather;
+    private final CitySaver citySaver;
     private City city;
 
     public WeatherController() {
         this.citySearcher = new CitySearcher();
         this.cityWeather = new CityWeather();
+        this.citySaver = new CitySaver("cities.db");
     }
 
     /**
      * Called when the search button is clicked.
+     * Saves city to the cities.db database.
      */
     public void search() {
         try {
             this.city = citySearcher.search(cityInput.getText());
             this.displayCity();
+            this.citySaver.save(this.city);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Connection failed!");

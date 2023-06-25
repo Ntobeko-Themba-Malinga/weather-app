@@ -7,17 +7,16 @@ import java.sql.*;
  */
 public class CitySaver {
     private final Connection connection;
-    private final Statement statement;
 
     /**
      * Creates an instance of the city saver.
      * @param database name of the database to use.
      */
     public CitySaver(String database) {
-        String databaseUrl = "jdbc:sqlite:/" + database;
+        String rootDir = System.getProperty("user.dir");
+        String databaseUrl = "jdbc:sqlite:" + rootDir + "/" + database;
         try {
             this.connection = DriverManager.getConnection(databaseUrl);
-            this.statement = connection.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -29,7 +28,20 @@ public class CitySaver {
      * @return true if city saved else false.
      */
     public boolean save(City city) {
-
+        String query = String.format(
+                "INSERT INTO cities values('%s', %f, %f)",
+                city.getName(),
+                city.getLatitude(),
+                city.getLongitude()
+        );
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }
