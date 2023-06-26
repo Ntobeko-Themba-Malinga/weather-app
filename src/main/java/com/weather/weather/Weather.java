@@ -28,8 +28,9 @@ public class Weather extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("weather.fxml")));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 900, 600);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }
