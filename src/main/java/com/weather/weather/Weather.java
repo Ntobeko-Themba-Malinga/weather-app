@@ -31,6 +31,7 @@ public class Weather extends Application {
         Scene scene = new Scene(root, 900, 600);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("Weather");
         stage.show();
     }
 }
