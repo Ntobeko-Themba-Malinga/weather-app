@@ -1,6 +1,8 @@
 package com.weather.weather;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Saves a city to the database.
@@ -10,6 +12,7 @@ public class CitySaver {
 
     /**
      * Creates an instance of the city saver.
+     *
      * @param database name of the database to use.
      */
     public CitySaver(String database) {
@@ -24,6 +27,7 @@ public class CitySaver {
 
     /**
      * Saves a cit to the database.
+     *
      * @param city city to save to the database.
      * @return true if city saved else false.
      */
@@ -43,5 +47,31 @@ public class CitySaver {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Gets all the cities saved in the database.
+     *
+     * @return List of saved cities
+     */
+    public List<City> getCities() {
+        List<City> cities = new ArrayList<>();
+        String query = "SELECT * FROM cities";
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet results = statement.executeQuery(query);
+
+            while (results.next()) {
+                String name = results.getString("name");
+                double latitude = results.getDouble("latitude");
+                double longitude = results.getDouble("longitude");
+                City city = new City(name, latitude, longitude);
+                cities.add(city);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cities;
     }
 }
