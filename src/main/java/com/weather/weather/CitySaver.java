@@ -2,6 +2,7 @@ package com.weather.weather;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,7 +41,8 @@ public class CitySaver {
         );
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+            if (getCity(city.getName()) == null)
+                statement.executeUpdate(query);
             statement.close();
             return true;
         } catch (SQLException e) {
@@ -72,6 +74,58 @@ public class CitySaver {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Collections.reverse(cities);
         return cities;
+    }
+
+    /**
+     * Gets a saved city from the database.
+     *
+     * @param cityName name of the city to get from the database.
+     * @return City object.
+     */
+    public City getCity(String cityName) {
+        City city = null;
+        String query = String.format(
+                "SELECT * FROM cities WHERE name='%s'",
+                cityName
+        );
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet results = statement.executeQuery(query);
+
+            while (results.next()) {
+                String name = results.getString("name");
+                int lat = results.getInt("latitude");
+                int longitude = results.getInt(("longitude"));
+                city = new City(name, lat, longitude);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return city;
+    }
+
+    /**
+     * Gets a saved city from the database.
+     *
+     * @param cityName name of the city t delete from the database.
+     * @return true if city successfully deleted else false.
+     */
+    public boolean deleteCity(String cityName) {
+        String query = String.format(
+                "DELETE FROM cities WHERE name='%s'",
+                cityName
+        );
+        int results;
+        try {
+            Statement statement = this.connection.createStatement();
+            results = statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return results == 1;
     }
 }
